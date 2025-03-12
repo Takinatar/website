@@ -69,28 +69,34 @@
         .live {
             background-color: red;
         }
-        .reset-button {
-            margin-top: 20px;
+        .controls {
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
+    <div class="controls">
+        <button onclick="resetValues()">Reset</button>
+        <button id="startButton" onclick="startGame()">Start</button>
+    </div>
     <div class="container">
         <div class="column">
             <div class="title">Blank Ammunition</div>
-            <button onclick="changeValue('value1', -1)">-</button>
+            <button class="modify" onclick="changeValue('value1', -1)">-</button>
             <span class="value" id="value1">0</span>
-            <button onclick="changeValue('value1', 1)">+</button>
+            <button class="modify" onclick="changeValue('value1', 1)">+</button>
         </div>
         <div class="ammo-display" id="ammoDisplay"></div>
         <div class="column">
             <div class="title">Live Ammunition</div>
-            <button onclick="changeValue('value2', -1)">-</button>
+            <button class="modify" onclick="changeValue('value2', -1)">-</button>
             <span class="value" id="value2">0</span>
-            <button onclick="changeValue('value2', 1)">+</button>
+            <button class="modify" onclick="changeValue('value2', 1)">+</button>
         </div>
     </div>
-    <button class="reset-button" onclick="resetValues()">Reset</button>
 
     <script>
         function changeValue(elementId, increment) {
@@ -105,7 +111,14 @@
         function resetValues() {
             document.getElementById('value1').textContent = "0";
             document.getElementById('value2').textContent = "0";
+            document.getElementById('startButton').classList.remove('hidden');
+            document.querySelectorAll('.modify').forEach(button => button.classList.remove('hidden'));
             updateAmmoDisplay();
+        }
+
+        function startGame() {
+            document.getElementById('startButton').classList.add('hidden');
+            document.querySelectorAll('.modify:not(:first-child)').forEach(button => button.classList.add('hidden'));
         }
 
         function updateAmmoDisplay() {
