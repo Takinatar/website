@@ -62,7 +62,6 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            opacity: 1;
             transition: opacity 0.2s;
         }
         .blank {
@@ -106,13 +105,13 @@
             let currentValue = parseInt(element.textContent, 10);
             if (increment < 0 && currentValue > 0) {
                 element.textContent = currentValue + increment;
-                fadeOutBullet(elementId);
+                removeBullet(elementId);
             } else if (increment > 0 && document.getElementById('startButton').classList.contains('hidden')) {
                 return;
-            } else {
+            } else if (increment > 0) {
                 element.textContent = currentValue + increment;
+                updateAmmoDisplay();
             }
-            updateAmmoDisplay();
         }
 
         function resetValues() {
@@ -120,8 +119,7 @@
             document.getElementById('value2').textContent = "0";
             document.getElementById('startButton').classList.remove('hidden');
             document.querySelectorAll('.modify').forEach(button => button.classList.remove('hidden'));
-            document.querySelectorAll('.ammo-bullet').forEach(bullet => bullet.style.opacity = "1");
-            updateAmmoDisplay();
+            document.getElementById('ammoDisplay').innerHTML = "";
         }
 
         function startGame() {
@@ -146,10 +144,11 @@
             }
         }
 
-        function fadeOutBullet(type) {
-            let bullets = document.getElementById('ammoDisplay').getElementsByClassName(type === 'value1' ? 'blank' : 'live');
+        function removeBullet(type) {
+            let display = document.getElementById('ammoDisplay');
+            let bullets = display.getElementsByClassName(type === 'value1' ? 'blank' : 'live');
             if (bullets.length > 0) {
-                bullets[bullets.length - 1].style.opacity = "0.5";
+                bullets[bullets.length - 1].remove();
             }
         }
     </script>
