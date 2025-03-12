@@ -3,36 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Increment/Decrement Example</title>
+    <title>Ammunition Counter</title>
     <style>
+        body {
+            background-color: #2c2c2c;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
         .container {
             display: flex;
-            justify-content: space-around;
-            width: 50%;
-            margin: auto;
+            gap: 50px;
         }
         .column {
             text-align: center;
+            background: #3a3a3a;
+            padding: 20px;
+            border-radius: 10px;
+            width: 200px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+        .title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .value {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
         }
         button {
-            display: block;
-            margin: 5px auto;
+            background: #5a5a5a;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #777;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="column">
-            <h2>Column 1</h2>
-            <button onclick="changeValue('value1', -1)">-1</button>
-            <span id="value1">0</span>
-            <button onclick="changeValue('value1', 1)">+1</button>
+            <div class="title">Blank Ammunition</div>
+            <button onclick="changeValue('value1', -1)">-</button>
+            <span class="value" id="value1">0</span>
+            <button onclick="changeValue('value1', 1)">+</button>
         </div>
         <div class="column">
-            <h2>Column 2</h2>
-            <button onclick="changeValue('value2', -1)">-1</button>
-            <span id="value2">0</span>
-            <button onclick="changeValue('value2', 1)">+1</button>
+            <div class="title">Live Ammunition</div>
+            <button onclick="changeValue('value2', -1)">-</button>
+            <span class="value" id="value2">0</span>
+            <button onclick="changeValue('value2', 1)">+</button>
         </div>
     </div>
 
@@ -41,6 +73,7 @@
             const element = document.getElementById(elementId);
             let currentValue = parseInt(element.textContent, 10);
             currentValue += increment;
+            if (currentValue < 0) currentValue = 0;
             element.textContent = currentValue;
         }
     </script>
