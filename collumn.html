@@ -149,9 +149,10 @@
 
         function fadeBullet(type) {
             let display = document.getElementById('ammoDisplay');
-            let bullets = display.getElementsByClassName(type === 'value1' ? 'blank' : 'live');
-            if (bullets.length > 0) {
-                bullets[bullets.length - 1].classList.add('faded');
+            let bullets = Array.from(display.getElementsByClassName(type === 'value1' ? 'blank' : 'live'));
+            let unfadedBullets = bullets.filter(bullet => !bullet.classList.contains('faded'));
+            if (unfadedBullets.length > 0) {
+                unfadedBullets[unfadedBullets.length - 1].classList.add('faded');
             }
         }
     </script>
