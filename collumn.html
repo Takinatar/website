@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Increment/Decrement Example</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-around;
+            width: 50%;
+            margin: auto;
+        }
+        .column {
+            text-align: center;
+        }
+        button {
+            display: block;
+            margin: 5px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="column">
+            <h2>Column 1</h2>
+            <button onclick="changeValue('value1', -1)">-1</button>
+            <span id="value1">0</span>
+            <button onclick="changeValue('value1', 1)">+1</button>
+        </div>
+        <div class="column">
+            <h2>Column 2</h2>
+            <button onclick="changeValue('value2', -1)">-1</button>
+            <span id="value2">0</span>
+            <button onclick="changeValue('value2', 1)">+1</button>
+        </div>
+    </div>
+
+    <script>
+        function changeValue(elementId, increment) {
+            const element = document.getElementById(elementId);
+            let currentValue = parseInt(element.textContent, 10);
+            currentValue += increment;
+            element.textContent = currentValue;
+        }
+    </script>
+</body>
+</html>
