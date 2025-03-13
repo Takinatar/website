@@ -79,6 +79,10 @@
         .hidden {
             display: none;
         }
+        .round-counter {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -86,6 +90,7 @@
         <button onclick="resetValues()">Reset</button>
         <button id="startButton" onclick="startGame()">Start</button>
     </div>
+    <div class="round-counter" id="roundCounter">Round 1</div>
     <div class="container">
         <div class="column">
             <div class="title">Blank Ammunition</div>
@@ -103,12 +108,15 @@
     </div>
 
     <script>
+        let round = 1;
+
         function changeValue(elementId, increment) {
             const element = document.getElementById(elementId);
             let currentValue = parseInt(element.textContent, 10);
             if (increment < 0 && currentValue > 0) {
                 element.textContent = currentValue + increment;
                 fadeBullet(elementId);
+                increaseRound();
             } else if (increment > 0 && document.getElementById('startButton').classList.contains('hidden')) {
                 return;
             } else if (increment > 0) {
@@ -123,6 +131,8 @@
             document.getElementById('startButton').classList.remove('hidden');
             document.querySelectorAll('.modify').forEach(button => button.classList.remove('hidden'));
             document.getElementById('ammoDisplay').innerHTML = "";
+            round = 1;
+            document.getElementById('roundCounter').textContent = "Round 1";
         }
 
         function startGame() {
@@ -154,6 +164,11 @@
             if (unfadedBullets.length > 0) {
                 unfadedBullets[unfadedBullets.length - 1].classList.add('faded');
             }
+        }
+
+        function increaseRound() {
+            round++;
+            document.getElementById('roundCounter').textContent = `Round ${round}`;
         }
     </script>
 </body>
