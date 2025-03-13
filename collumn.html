@@ -109,17 +109,21 @@
 
     <script>
         let round = 1;
+        let gameStarted = false;
 
         function changeValue(elementId, increment) {
+            if (!gameStarted && increment < 0) return;
+            
             const element = document.getElementById(elementId);
             let currentValue = parseInt(element.textContent, 10);
+            
             if (increment < 0 && currentValue > 0) {
                 element.textContent = currentValue + increment;
-                fadeBullet(elementId);
-                increaseRound();
-            } else if (increment > 0 && document.getElementById('startButton').classList.contains('hidden')) {
-                return;
-            } else if (increment > 0) {
+                if (gameStarted) {
+                    fadeBullet(elementId);
+                    increaseRound();
+                }
+            } else if (increment > 0 && !gameStarted) {
                 element.textContent = currentValue + increment;
                 updateAmmoDisplay();
             }
@@ -133,11 +137,13 @@
             document.getElementById('ammoDisplay').innerHTML = "";
             round = 1;
             document.getElementById('roundCounter').textContent = "Round 1";
+            gameStarted = false;
         }
 
         function startGame() {
             document.getElementById('startButton').classList.add('hidden');
             document.querySelectorAll('.add').forEach(button => button.classList.add('hidden'));
+            gameStarted = true;
         }
 
         function updateAmmoDisplay() {
