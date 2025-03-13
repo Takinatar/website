@@ -112,8 +112,6 @@
         let gameStarted = false;
 
         function changeValue(elementId, increment) {
-            if (!gameStarted && increment < 0) return;
-            
             const element = document.getElementById(elementId);
             let currentValue = parseInt(element.textContent, 10);
             
@@ -122,8 +120,10 @@
                 if (gameStarted) {
                     fadeBullet(elementId);
                     increaseRound();
+                } else {
+                    updateAmmoDisplay();
                 }
-            } else if (increment > 0 && !gameStarted) {
+            } else if (increment > 0) {
                 element.textContent = currentValue + increment;
                 updateAmmoDisplay();
             }
@@ -147,6 +147,7 @@
         }
 
         function updateAmmoDisplay() {
+            if (gameStarted) return;
             const blankCount = parseInt(document.getElementById('value1').textContent, 10);
             const liveCount = parseInt(document.getElementById('value2').textContent, 10);
             const display = document.getElementById('ammoDisplay');
